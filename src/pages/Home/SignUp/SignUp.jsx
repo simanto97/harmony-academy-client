@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import { AuthContext } from "../../../providers/AuthProvider";
+// TODO: 1.update user profile with image
+// 2. hot toast alert
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { createUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -13,7 +16,14 @@ const SignUp = () => {
   const password = watch("password");
 
   const onSubmit = (data) => {
-    console.log(data); // Perform sign up logic here
+    console.log(data);
+    createUser(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   const togglePasswordVisibility = () => {
@@ -22,12 +32,12 @@ const SignUp = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-white shadow-md rounded-md overflow-hidden max-w-sm w-full">
+      <div className="bg-white shadow-lg rounded-md overflow-hidden max-w-sm w-full border border-[#00b0e4]">
         <div className="p-6">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
-                className="block text-white text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="name"
               >
                 Name
@@ -47,9 +57,10 @@ const SignUp = () => {
                 </p>
               )}
             </div>
+
             <div className="mb-4">
               <label
-                className="block text-white text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="email"
               >
                 Email
@@ -71,7 +82,7 @@ const SignUp = () => {
             </div>
             <div className="mb-4">
               <label
-                className="block text-white text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
@@ -104,7 +115,7 @@ const SignUp = () => {
             </div>
             <div className="mb-4">
               <label
-                className="block text-white text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="confirmPassword"
               >
                 Confirm Password
@@ -122,7 +133,7 @@ const SignUp = () => {
                     value === password || "Passwords do not match",
                 })}
               />
-              
+
               {errors.confirmPassword && (
                 <p className="text-red-500 text-xs italic">
                   {errors.confirmPassword.message}
@@ -131,7 +142,7 @@ const SignUp = () => {
             </div>
             <div className="mb-4">
               <label
-                className="block text-white text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="photo"
               >
                 Upload Photo

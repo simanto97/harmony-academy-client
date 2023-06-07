@@ -3,10 +3,10 @@ import Container from "../Container";
 import logo from "../../../assets/logo/logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
-
+// TODO: conditional profile pic 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  // Harmonious Heights
+  
   const navOptions = (
     <>
       <li>

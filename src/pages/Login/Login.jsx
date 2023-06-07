@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import loginImg from "../../assets/Login/login.png";
+import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading, signIn } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -17,6 +20,15 @@ const Login = () => {
     // Simulating an asynchronous login request
     setTimeout(() => {
       console.log(data); // Perform login logic here
+      signIn(data.email, data.password)
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          toast.success("User logged in successfully!");
+        })
+        .catch((error) => {
+          toast.error(`${error.message}`);
+        });
       setLoading(false);
     }, 2000);
   };
@@ -27,10 +39,10 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-white shadow-md rounded-md overflow-hidden max-w-sm w-full">
+      <div className="bg-white shadow-lg rounded-md overflow-hidden max-w-sm w-full border border-[#00b0e4]">
         <div className="relative mb-4">
           <img
-            className="h-40 w-full object-cover"
+            className="h-52 w-full object-cover py-2"
             src={loginImg}
             alt="Login"
           />
@@ -43,7 +55,7 @@ const Login = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
-                className="block text-white text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="email"
               >
                 Email
@@ -65,7 +77,7 @@ const Login = () => {
             </div>
             <div className="mb-6">
               <label
-                className="block text-white text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
@@ -126,7 +138,7 @@ const Login = () => {
                     ></path>
                   </svg>
                 ) : (
-                  "Sign In"
+                  "Login"
                 )}
               </button>
               <a
