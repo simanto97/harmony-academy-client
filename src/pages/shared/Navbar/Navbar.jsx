@@ -3,10 +3,12 @@ import Container from "../Container";
 import logo from "../../../assets/logo/logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
-// TODO: conditional profile pic 
+import { toast } from "react-hot-toast";
+// TODO: conditional profile pic 2. photoURL implement
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  
+  console.log("from nav", user?.photoURL);
+
   const navOptions = (
     <>
       <li>
@@ -18,11 +20,28 @@ const Navbar = () => {
       <li>
         <Link to="/classes">Classes</Link>
       </li>
+      {/* {user.role === "student" && (
+        <li>
+          <Link to="/dashboard/student">Dashboard</Link>
+        </li>
+      )}
+      {user.role === "instructor" && (
+        <li>
+          <Link to="/dashboard/instructor">Dashboard</Link>
+        </li>
+      )}
+      {user.role === "admin" && (
+        <li>
+          <Link to="/dashboard/admin">Dashboard</Link>
+        </li>
+      )} */}
     </>
   );
   const handleLogOut = () => {
     logOut()
-      .then(() => {})
+      .then(() => {
+        toast.success("Logout successful");
+      })
       .catch((error) => console.log(error));
   };
   return (
@@ -70,12 +89,19 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <button
-              onClick={handleLogOut}
-              className="btn bg-[#00b0e4] text-white px-6"
-            >
-              Logout
-            </button>
+            <>
+              <div className="avatar">
+                <div className="w-16 mr-3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img src={user?.photoURL} />
+                </div>
+              </div>
+              <button
+                onClick={handleLogOut}
+                className="btn bg-[#00b0e4] text-white px-6"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <Link to="/login">
               <button className="btn bg-[#00b0e4] text-white px-6">

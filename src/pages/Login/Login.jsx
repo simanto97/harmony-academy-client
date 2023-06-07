@@ -4,6 +4,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import loginImg from "../../assets/Login/login.png";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import SocialLogin from "../shared/SocialLogin/SocialLogin";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +15,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -22,9 +25,11 @@ const Login = () => {
       console.log(data); // Perform login logic here
       signIn(data.email, data.password)
         .then((result) => {
-          const user = result.user;
-          console.log(user);
-          toast.success("User logged in successfully!");
+          const user = result?.user;
+          reset();
+          toast.success(
+            `${user?.displayName || "Unknown user"} logged in successfully!`
+          );
         })
         .catch((error) => {
           toast.error(`${error.message}`);
@@ -46,9 +51,6 @@ const Login = () => {
             src={loginImg}
             alt="Login"
           />
-          {/* <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-            <h1 className="text-white text-3xl font-bold">Welcome Back</h1>
-          </div> */}
         </div>
         <div className="divider"></div>
         <div className="p-6">
@@ -149,6 +151,14 @@ const Login = () => {
               </a>
             </div>
           </form>
+          <p className="text-center my-2">
+            New to Harmony Academy?{" "}
+            <Link className="underline text-[#00b0e4]" to="/sign-up">
+              Sign Up
+            </Link>
+          </p>
+          <div className="divider">OR</div>
+          <SocialLogin />
         </div>
       </div>
     </div>

@@ -2,28 +2,75 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../../providers/AuthProvider";
-// TODO: 1.update user profile with image
-// 2. hot toast alert
+import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
+import SocialLogin from "../../shared/SocialLogin/SocialLogin";
+
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  const { createUser, setLoading, updateUserProfile } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm();
   const password = watch("password");
 
   const onSubmit = (data) => {
-    console.log(data);
-    createUser(data.email, data.password)
-      .then((result) => {
-        console.log(result.user);
+    // photo upload
+    const image = data.photo[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_KEY
+    }`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        const imageUrl = imageData?.data?.display_url;
+        createUser(data.email, data.password)
+          .then(() => {
+            updateUserProfile(data?.name, imageUrl)
+              .then((result) => {
+                const user = result?.user;
+                reset();
+                toast.success(
+                  `${
+                    user?.displayName || "Unknown user"
+                  } logged in successfully!`
+                );
+              })
+              .catch((error) => {
+                setLoading(false);
+                toast.error(error.message);
+              });
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
       })
       .catch((error) => {
-        console.log(error.message);
+        toast.error(error.message);
+        setLoading(false);
       });
+  };
+  const validatePassword = (value) => {
+    if (value.length < 6) {
+      return "Password should be at least 6 characters long.";
+    }
+    if (!/[A-Z]/.test(value)) {
+      return "Password should contain at least one capital letter.";
+    }
+    if (!/[^A-Za-z0-9]/.test(value)) {
+      return "Password should contain at least one special character.";
+    }
+    return true;
   };
 
   const togglePasswordVisibility = () => {
@@ -97,6 +144,7 @@ const SignUp = () => {
                   placeholder="Enter your password"
                   {...register("password", {
                     required: "Password is required",
+                    validate: validatePassword,
                   })}
                 />
                 <button
@@ -157,13 +205,21 @@ const SignUp = () => {
             </div>
             <div className="flex items-center justify-between">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-[#00b0e4] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
               >
                 Sign Up
               </button>
             </div>
           </form>
+          <p className="text-center my-2">
+            Already have an account?{" "}
+            <Link className="underline text-[#00b0e4]" to="/login">
+              Login
+            </Link>
+          </p>
+          <div className="divider">OR</div>
+          <SocialLogin />
         </div>
       </div>
     </div>
