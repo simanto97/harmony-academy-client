@@ -7,7 +7,7 @@ const Classes = () => {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/classes")
+    fetch(`${import.meta.env.VITE_HOSTING_URL}/classes`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -27,7 +27,7 @@ const Classes = () => {
         price,
         email: user?.email,
       };
-      fetch("http://localhost:5000/carts", {
+      fetch(`${import.meta.env.VITE_HOSTING_URL}/carts`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(selectedItem),

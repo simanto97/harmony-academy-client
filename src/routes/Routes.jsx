@@ -7,6 +7,7 @@ import Secret from "../pages/secret/Secret";
 import PrivateRoute from "./PrivateRoute";
 import Instructors from "../pages/Home/Instructors/Instructors";
 import Classes from "../pages/Home/Classes/Classes";
+import Dashboard from "../Layout/Dashboard";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -38,5 +39,10 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [{}],
   },
 ]);

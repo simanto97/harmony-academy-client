@@ -4,10 +4,15 @@ import logo from "../../../assets/logo/logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import useGetDbUser from "../../../hooks/useGetDbUser";
+
 // TODO: conditional profile pic 2. photoURL implement
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log("from nav", user?.photoURL);
+  const dbUser = useGetDbUser();
+  console.log(dbUser);
+
+  // console.log("from nav", user?.photoURL);
 
   const navOptions = (
     <>
@@ -20,15 +25,15 @@ const Navbar = () => {
       <li>
         <Link to="/classes">Classes</Link>
       </li>
-      <li>
-        <Link to="/secret">Secret</Link>
-      </li>
-      {/* {user.role === "student" && (
+      {/* <li>
+        <Link to="/dashboard">Dashboard</Link>
+      </li> */}
+      {dbUser?.role === "student" && (
         <li>
-          <Link to="/dashboard/student">Dashboard</Link>
+          <Link to="/dashboard">Dashboard</Link>
         </li>
       )}
-      {user.role === "instructor" && (
+      {/* {user.role === "instructor" && (
         <li>
           <Link to="/dashboard/instructor">Dashboard</Link>
         </li>
@@ -37,7 +42,7 @@ const Navbar = () => {
         <li>
           <Link to="/dashboard/admin">Dashboard</Link>
         </li>
-      )} */}
+      )}{" "} */}
     </>
   );
   const handleLogOut = () => {

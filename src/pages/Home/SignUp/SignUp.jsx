@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, setLoading, updateUserProfile } = useContext(AuthContext);
+  const { createUser, setLoading, updateUserProfile, setUser, user } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -38,14 +40,35 @@ const SignUp = () => {
           .then(() => {
             updateUserProfile(data?.name, imageUrl)
               .then((result) => {
-                const user = result?.user;
-                reset();
-                toast.success(
-                  `${
-                    user?.displayName || "Unknown user"
-                  } logged in successfully!`
-                );
-                setLoading(false);
+                setUser({
+                  ...user,
+                  displayName: data.name,
+                  photoURL: imageUrl,
+                });
+                const saveUser = {
+                  name: data.name,
+                  email: data.email,
+                  role: "student",
+                };
+                fetch(`${import.meta.env.VITE_HOSTING_URL}/users`, {
+                  method: "POST",
+                  headers: { "content-type": "application/json" },
+                  body: JSON.stringify(saveUser),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    if (data.insertedId) {
+                      const user = result?.user;
+                      reset();
+                      toast.success(
+                        `${
+                          user?.displayName || "Unknown user"
+                        } logged in successfully!`
+                      );
+                      setLoading(false);
+                      navigate("/");
+                    }
+                  });
               })
               .catch((error) => {
                 setLoading(false);
