@@ -1,15 +1,20 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
 
 const useGetDbUser = () => {
-  const [dbUser, setDbUser] = useState([]);
   const { user } = useContext(AuthContext);
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_HOSTING_URL}/users?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setDbUser(data));
-  }, [user?.email]);
-  return dbUser;
+
+  const { data: dbUser = [], isLoading: isDbLoading } = useQuery({
+    queryKey: ["users", user?.email],
+    queryFn: async () => {
+      const res = await fetch(
+        `${import.meta.env.VITE_HOSTING_URL}/users?email=${user?.email}`
+      );
+      return res.json();
+    },
+  });
+  return [dbUser, isDbLoading];
 };
 
 export default useGetDbUser;

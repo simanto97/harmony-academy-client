@@ -11,7 +11,7 @@ import useCart from "../../../hooks/useCart";
 // TODO: conditional rendering dashboard
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const dbUser = useGetDbUser();
+  const [dbUser] = useGetDbUser();
   const [cart] = useCart();
   console.log(dbUser);
 
@@ -46,16 +46,16 @@ const Navbar = () => {
           </li>
         </>
       )}
-      {/* {user.role === "instructor" && (
+      {dbUser[0]?.role === "instructor" && (
         <li>
-          <Link to="/dashboard/instructor">Dashboard</Link>
+          <Link to="/dashboard">Dashboard</Link>
         </li>
       )}
-      {user.role === "admin" && (
+      {dbUser[0]?.role === "admin" && (
         <li>
-          <Link to="/dashboard/admin">Dashboard</Link>
+          <Link to="/dashboard">Dashboard</Link>
         </li>
-      )}{" "} */}
+      )}{" "}
     </>
   );
   const handleLogOut = () => {

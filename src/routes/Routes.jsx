@@ -10,6 +10,10 @@ import Classes from "../pages/Home/Classes/Classes";
 import Dashboard from "../Layout/Dashboard";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
+import AdminRoute from "./AdminRoute";
+import StudentRoute from "./StudentRoute";
+import InstructorRoute from "./InstructorRoute";
+import MyClasses from "../pages/Dashboard/MyClasses.jsx/MyClasses";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -52,11 +56,27 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "carts",
-        element: <Cart />,
+        element: (
+          <StudentRoute>
+            <Cart />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "my-classes",
+        element: (
+          <InstructorRoute>
+            <MyClasses />
+          </InstructorRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
     ],
   },

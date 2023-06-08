@@ -11,11 +11,11 @@ import {
   FcConferenceCall,
   FcCurrencyExchange,
 } from "react-icons/fc";
-// import useGetDbUser from "../hooks/useGetDbUser";
+import useGetDbUser from "../hooks/useGetDbUser";
 
 const Dashboard = () => {
-  // const dbUser = useGetDbUser();
-  const isIns = true;
+  const [dbUser] = useGetDbUser();
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -33,7 +33,7 @@ const Dashboard = () => {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 h-full text-black text-lg">
           {/* Sidebar content here */}
-          {!isIns && (
+          {dbUser[0]?.role === "student" && (
             <>
               <li>
                 <Link to="/dashboard/carts">
@@ -54,7 +54,7 @@ const Dashboard = () => {
               </li>
             </>
           )}
-          {!isIns && (
+          {dbUser[0]?.role === "instructor" && (
             <>
               <li>
                 <Link to="/dashboard/add-class">
@@ -70,7 +70,7 @@ const Dashboard = () => {
               </li>
             </>
           )}
-          {isIns && (
+          {dbUser[0]?.role === "admin" && (
             <>
               <li>
                 <Link to="/dashboard/manage-classes">
