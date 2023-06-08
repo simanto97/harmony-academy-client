@@ -9,6 +9,7 @@ import {
   FcAddRow,
   FcDataConfiguration,
   FcConferenceCall,
+  FcCurrencyExchange,
 } from "react-icons/fc";
 // import useGetDbUser from "../hooks/useGetDbUser";
 
@@ -40,9 +41,15 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard">
+                <Link to="/dashboard/enrolled-classes">
                   <FcContacts className="text-2xl" />
                   My enrolled class
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/enrolled-classes">
+                  <FcCurrencyExchange className="text-2xl" />
+                  Payment history
                 </Link>
               </li>
             </>
@@ -50,13 +57,13 @@ const Dashboard = () => {
           {!isIns && (
             <>
               <li>
-                <Link to="/dashboard/carts">
+                <Link to="/dashboard/add-class">
                   <FcAddRow className="text-2xl" />
                   Add class
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard">
+                <Link to="/dashboard/my-classes">
                   <FcContacts className="text-2xl" />
                   My classes
                 </Link>
@@ -66,13 +73,13 @@ const Dashboard = () => {
           {isIns && (
             <>
               <li>
-                <Link to="/dashboard/carts">
+                <Link to="/dashboard/manage-classes">
                   <FcDataConfiguration className="text-2xl" />
                   Manage classes
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard">
+                <Link to="/dashboard/manage-users">
                   <FcConferenceCall className="text-2xl" />
                   Manage users
                 </Link>
