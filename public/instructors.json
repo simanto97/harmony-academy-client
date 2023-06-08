@@ -1,48 +1,48 @@
 [
   {
-    "image": "https://example.com/instructor1.jpg",
+    "image": "https://i.ibb.co/jZHfJbL/IMG-6488.jpg",
     "name": "John Smith",
     "email": "john@example.com",
     "classesTaken": 10,
     "numberOfStudents": 25
   },
   {
-    "image": "https://example.com/instructor2.jpg",
+    "image": "https://i.ibb.co/jZHfJbL/IMG-6488.jpg",
     "name": "Emily Johnson",
     "email": "emily@example.com",
     "classesTaken": 15,
     "numberOfStudents": 30
   },
   {
-    "image": "https://example.com/instructor3.jpg",
+    "image": "https://i.ibb.co/jZHfJbL/IMG-6488.jpg",
     "name": "Michael Davis",
     "email": "michael@example.com",
     "classesTaken": 5,
     "numberOfStudents": 20
   },
   {
-    "image": "https://example.com/instructor4.jpg",
+    "image": "https://i.ibb.co/jZHfJbL/IMG-6488.jpg",
     "name": "Sarah Thompson",
     "email": "sarah@example.com",
     "classesTaken": 8,
     "numberOfStudents": 15
   },
   {
-    "image": "https://example.com/instructor5.jpg",
+    "image": "https://i.ibb.co/jZHfJbL/IMG-6488.jpg",
     "name": "David Wilson",
     "email": "david@example.com",
     "classesTaken": 12,
     "numberOfStudents": 40
   },
   {
-    "image": "https://example.com/instructor6.jpg",
+    "image": "https://i.ibb.co/jZHfJbL/IMG-6488.jpg",
     "name": "Jennifer Lee",
     "email": "jennifer@example.com",
     "classesTaken": 20,
     "numberOfStudents": 50
   },
   {
-    "image": "https://example.com/instructor7.jpg",
+    "image": "https://i.ibb.co/jZHfJbL/IMG-6488.jpg",
     "name": "Andrew Davis",
     "email": "andrew@example.com",
     "classesTaken": 6,

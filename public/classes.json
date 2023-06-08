@@ -1,0 +1,34 @@
+[
+  {
+    "image": "class1.jpg",
+    "name": "Piano Beginner",
+    "instructorName": "John Smith",
+    "availableSeats": 10,
+    "price": 100,
+    "status": "approved"
+  },
+  {
+    "image": "class2.jpg",
+    "name": "Guitar Intermediate",
+    "instructorName": "Emily Davis",
+    "availableSeats": 5,
+    "price": 80,
+    "status": "pending"
+  },
+  {
+    "image": "class3.jpg",
+    "name": "Violin Advanced",
+    "instructorName": "Michael Johnson",
+    "availableSeats": 2,
+    "price": 150,
+    "status": "approved"
+  },
+  {
+    "image": "class4.jpg",
+    "name": "Drums Beginner",
+    "instructorName": "Sarah Adams",
+    "availableSeats": 8,
+    "price": 90,
+    "status": "denied"
+  }
+]

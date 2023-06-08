@@ -45,6 +45,7 @@ const SignUp = () => {
                     user?.displayName || "Unknown user"
                   } logged in successfully!`
                 );
+                setLoading(false);
               })
               .catch((error) => {
                 setLoading(false);

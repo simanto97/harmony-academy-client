@@ -20,6 +20,9 @@ const Navbar = () => {
       <li>
         <Link to="/classes">Classes</Link>
       </li>
+      <li>
+        <Link to="/secret">Secret</Link>
+      </li>
       {/* {user.role === "student" && (
         <li>
           <Link to="/dashboard/student">Dashboard</Link>
