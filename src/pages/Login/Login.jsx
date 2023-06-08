@@ -5,11 +5,15 @@ import loginImg from "../../assets/Login/login.png";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import SocialLogin from "../shared/SocialLogin/SocialLogin";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { loading, setLoading, signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -30,6 +34,7 @@ const Login = () => {
           toast.success(
             `${user?.displayName || "Unknown user"} logged in successfully!`
           );
+          navigate(from, { replace: true });
         })
         .catch((error) => {
           toast.error(`${error.message}`);

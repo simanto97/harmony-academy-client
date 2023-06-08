@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import useCart from "../../../hooks/useCart";
 
 const Classes = () => {
   const { user } = useContext(AuthContext);
   const [classes, setClasses] = useState([]);
+  const [, refetch] = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_HOSTING_URL}/classes`)
@@ -27,7 +31,7 @@ const Classes = () => {
         price,
         email: user?.email,
       };
-      fetch(`${import.meta.env.VITE_HOSTING_URL}/carts`, {
+      fetch(`${import.meta.env.VITE_HOSTING_URL}/dashboard/carts`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(selectedItem),
@@ -35,9 +39,13 @@ const Classes = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
+            refetch();
             toast.success("item added to cart");
           }
         });
+    } else {
+      toast.error("You need to Login first");
+      navigate("/login");
     }
   };
   return (

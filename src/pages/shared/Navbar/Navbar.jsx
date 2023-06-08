@@ -5,11 +5,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import useGetDbUser from "../../../hooks/useGetDbUser";
+import { RiShoppingCart2Fill } from "react-icons/ri";
+import useCart from "../../../hooks/useCart";
 
-// TODO: conditional profile pic 2. photoURL implement
+// TODO: conditional rendering dashboard
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const dbUser = useGetDbUser();
+  const [cart] = useCart();
   console.log(dbUser);
 
   // console.log("from nav", user?.photoURL);
@@ -28,10 +31,20 @@ const Navbar = () => {
       {/* <li>
         <Link to="/dashboard">Dashboard</Link>
       </li> */}
-      {dbUser?.role === "student" && (
-        <li>
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
+      {dbUser[0]?.role === "student" && (
+        <>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <Link to="/dashboard/carts">
+              <RiShoppingCart2Fill className="text-3xl" />
+              <span className="badge badge-secondary -ml-3 -mt-3">
+                {cart.length}
+              </span>
+            </Link>
+          </li>
+        </>
       )}
       {/* {user.role === "instructor" && (
         <li>
