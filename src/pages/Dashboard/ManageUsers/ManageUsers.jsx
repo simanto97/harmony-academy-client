@@ -3,12 +3,41 @@ import { GrUserAdmin } from "react-icons/gr";
 import { GiTeacher } from "react-icons/gi";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
+
 // TODO: need to make admin and instructor implement
 const ManageUsers = () => {
   const { data: allUsers = [], refetch } = useQuery(["users"], async () => {
     const res = await fetch(`${import.meta.env.VITE_HOSTING_URL}/users`);
     return res.json();
   });
+
+  const handleMakeAdmin = (id) => {
+    fetch(`${import.meta.env.VITE_HOSTING_URL}/users/admin/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("You made the user as admin");
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+  const handleMakeInstructor = (id) => {
+    fetch(`${import.meta.env.VITE_HOSTING_URL}/users/instructor/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("You made the user as Instructor");
+        }
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleDelete = (singleUser) => {
     Swal.fire({
@@ -46,6 +75,7 @@ const ManageUsers = () => {
                 <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>status</th>
                 <th>Role</th>
                 <th>Action</th>
               </tr>
@@ -56,10 +86,18 @@ const ManageUsers = () => {
                   <td>{index + 1}</td>
                   <td>{singleUser.name}</td>
                   <td>{singleUser?.email}</td>
+                  <td>{singleUser?.role}</td>
                   <td>
-                    <div className="flex flex-row justify-center items-center gap-2 text-2xl">
-                      <GiTeacher />
-                      <GrUserAdmin />
+                    <div className="flex flex-row justify-start items-center gap-2 text-2xl">
+                      <button className="btn btn-warning">
+                        {" "}
+                        <GiTeacher
+                          onClick={() => handleMakeInstructor(singleUser._id)}
+                        />
+                      </button>
+                      <GrUserAdmin
+                        onClick={() => handleMakeAdmin(singleUser._id)}
+                      />
                     </div>
                   </td>
                   <td className="text-3xl text-red-600">
