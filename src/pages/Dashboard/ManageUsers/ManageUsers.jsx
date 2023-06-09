@@ -89,15 +89,28 @@ const ManageUsers = () => {
                   <td>{singleUser?.role}</td>
                   <td>
                     <div className="flex flex-row justify-start items-center gap-2 text-2xl">
-                      <button className="btn btn-warning">
+                      <button
+                        onClick={() => handleMakeInstructor(singleUser._id)}
+                        className={`btn btn-warning ${
+                          singleUser?.role === "instructor"
+                            ? "disabled bg-gray-400 hover:bg-gray-400"
+                            : ""
+                        }`}
+                      >
                         {" "}
-                        <GiTeacher
-                          onClick={() => handleMakeInstructor(singleUser._id)}
-                        />
+                        <GiTeacher />
                       </button>
-                      <GrUserAdmin
+                      <button
                         onClick={() => handleMakeAdmin(singleUser._id)}
-                      />
+                        className={`btn btn-warning ${
+                          singleUser?.role === "admin"
+                            ? "disabled bg-gray-400 hover:bg-gray-400"
+                            : ""
+                        }`}
+                      >
+                        {" "}
+                        <GrUserAdmin />
+                      </button>
                     </div>
                   </td>
                   <td className="text-3xl text-red-600">

@@ -16,6 +16,8 @@ import InstructorRoute from "./InstructorRoute";
 import MyClasses from "../pages/Dashboard/MyClasses.jsx/MyClasses";
 import AddClass from "../pages/Dashboard/AddClass/AddClass";
 import ManageClasses from "../pages/Dashboard/ManageClasses/ManageClasses";
+import EnrolledClasses from "../pages/Dashboard/EnrolledClasses/EnrolledClasses";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -61,6 +63,22 @@ export const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <Cart />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "enrolled-classes",
+        element: (
+          <StudentRoute>
+            <EnrolledClasses />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "payment-history",
+        element: (
+          <StudentRoute>
+            <PaymentHistory />
           </StudentRoute>
         ),
       },
