@@ -47,7 +47,7 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/enrolled-classes">
+                <Link to="/dashboard/payment-history">
                   <FcCurrencyExchange className="text-2xl" />
                   Payment history
                 </Link>

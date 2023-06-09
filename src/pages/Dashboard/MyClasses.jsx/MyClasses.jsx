@@ -1,9 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { FaRegEdit } from "react-icons/fa";
+import UpdateModal from "../UpdateModal/UpdateModal";
+import { toast } from "react-hot-toast";
 
 const MyClasses = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState([]);
   const { user } = useContext(AuthContext);
   const { data: classes = [], refetch } = useQuery({
     queryKey: ["classes", user?.email],
@@ -15,13 +19,70 @@ const MyClasses = () => {
     },
   });
 
-//   const handleUpdate = (singleClass) => {
-//     console.log(singleClass._id);
+  const openModal = (id) => {
+    fetch(`${import.meta.env.VITE_HOSTING_URL}/classes/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSelectedData(data[0]);
+      });
+    setModalOpen(true);
+  };
 
-//   };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleUpdate = (formData) => {
+    // console.log(formData);
+    const image = formData.photo[0];
+    const photoData = new FormData();
+    photoData.append("image", image);
+
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_KEY
+    }`;
+    fetch(url, {
+      method: "POST",
+      body: photoData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        const imageUrl = imageData?.data?.display_url;
+        // console.log("image display url", imageUrl);
+        // formData.append("image", imageUrl);
+        const addedData = {
+          ...formData,
+          image: imageUrl,
+        };
+
+        // Handle the form submission here
+        fetch(
+          `${import.meta.env.VITE_HOSTING_URL}/classes/${selectedData._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(addedData),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount > 0) {
+              refetch();
+              toast.success("You updated the class");
+            }
+          })
+          .catch((error) => toast.error(error.message));
+        // console.log(formData);
+        closeModal();
+      });
+  };
   return (
     <div className="md:w-4/5 mx-auto">
-      <h2>My classes: {classes.length}</h2>
+      <h2 className="text-3xl font-semibold">
+        My added classes: {classes.length}
+      </h2>
       <div>
         <div className="overflow-x-auto">
           <table className="table">
@@ -62,11 +123,25 @@ const MyClasses = () => {
                   </td>
                   <td className="font-medium">{singleClass?.availableSeats}</td>
                   <td className="font-medium">{singleClass?.status}</td>
-                  <td>
+                  {/* <td>
                     <FaRegEdit
                       onClick={() => handleUpdate(singleClass)}
                       className="text-3xl text-yellow-500"
                     />
+                  </td> */}
+                  <td>
+                    {/* Render your website content here */}
+                    <FaRegEdit
+                      className="text-3xl text-yellow-500"
+                      onClick={() => openModal(singleClass._id)}
+                    ></FaRegEdit>
+                    {modalOpen && (
+                      <UpdateModal
+                        data={selectedData}
+                        onSubmit={handleUpdate}
+                        onCancel={closeModal}
+                      />
+                    )}
                   </td>
                 </tr>
               ))}
