@@ -11,10 +11,10 @@ const Classes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_HOSTING_URL}/classes`)
+    fetch(`${import.meta.env.VITE_HOSTING_URL}/classes?approve=approved`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setClasses(data);
       })
       .catch((error) => console.log(error));

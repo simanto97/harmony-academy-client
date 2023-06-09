@@ -100,7 +100,7 @@ const MyClasses = () => {
             </thead>
             <tbody>
               {classes.map((singleClass, index) => (
-                <tr key={singleClass._id}>
+                <tr key={singleClass._id} className="hover:bg-gray-200">
                   <td>{index + 1}</td>
                   <td>
                     <div className="flex items-center space-x-3">
@@ -132,7 +132,7 @@ const MyClasses = () => {
                   <td>
                     {/* Render your website content here */}
                     <FaRegEdit
-                      className="text-3xl text-yellow-500"
+                      className="text-3xl text-yellow-500 hover:text-yellow-700"
                       onClick={() => openModal(singleClass._id)}
                     ></FaRegEdit>
                     {modalOpen && (
