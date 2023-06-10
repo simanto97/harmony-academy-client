@@ -76,6 +76,7 @@ const SignUp = () => {
               });
           })
           .catch((error) => {
+            setLoading(false);
             toast.error(error.message);
           });
       })

@@ -26,7 +26,6 @@ const Login = () => {
     setLoading(true);
     // Simulating an asynchronous login request
     setTimeout(() => {
-      console.log(data); // Perform login logic here
       signIn(data.email, data.password)
         .then((result) => {
           const user = result?.user;

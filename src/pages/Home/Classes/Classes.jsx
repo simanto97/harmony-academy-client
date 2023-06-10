@@ -33,7 +33,9 @@ const Classes = () => {
       };
       fetch(`${import.meta.env.VITE_HOSTING_URL}/dashboard/carts`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: {
+          "content-type": "application/json",
+        },
         body: JSON.stringify(selectedItem),
       })
         .then((res) => res.json())

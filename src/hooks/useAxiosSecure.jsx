@@ -1,7 +1,9 @@
-import { useContext, useEffect } from "react";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { useContext, useEffect } from "react";
+
 
 const axiosSecure = axios.create({
   baseURL: `${import.meta.env.VITE_HOSTING_URL}`,
@@ -27,7 +29,7 @@ const useAxiosSecure = () => {
           error.response &&
           (error.response.status === 401 || error.response.status === 403)
         ) {
-          await logOut();
+        //   await logOut();
           navigate("/login");
         }
         return Promise.reject(error);

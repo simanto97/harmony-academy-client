@@ -13,7 +13,6 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [dbUser] = useGetDbUser();
   const [cart] = useCart();
-  console.log(dbUser);
 
   // console.log("from nav", user?.photoURL);
 

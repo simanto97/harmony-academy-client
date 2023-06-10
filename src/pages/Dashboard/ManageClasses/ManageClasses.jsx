@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { FcApproval, FcCancel } from "react-icons/fc";
 
-// TODO: Feedback implement 
+// TODO: Feedback implement
 const ManageClasses = () => {
   const { data: classes = [], refetch } = useQuery(["classes"], async () => {
     const res = await fetch(`${import.meta.env.VITE_HOSTING_URL}/classes`);
@@ -110,14 +110,6 @@ const ManageClasses = () => {
                     </>
                   )}
                   {item?.status === "denied" && "Denied"}
-                  {/* <button className="btn btn-ghost btn-xs">
-                    <FcApproval className="text-2xl" />
-                    <span>Approve</span>
-                  </button>
-                  <button className="btn btn-ghost btn-xs">
-                    <FcCancel className="text-2xl" />
-                    <span>Deny</span>
-                  </button> */}
                 </td>
               </tr>
             ))}

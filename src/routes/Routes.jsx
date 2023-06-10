@@ -3,7 +3,6 @@ import Main from "../Layout/Main";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/Home/SignUp/SignUp";
-import Secret from "../pages/secret/Secret";
 import PrivateRoute from "./PrivateRoute";
 import Instructors from "../pages/Home/Instructors/Instructors";
 import Classes from "../pages/Home/Classes/Classes";
@@ -39,14 +38,6 @@ export const router = createBrowserRouter([
       {
         path: "/classes",
         element: <Classes />,
-      },
-      {
-        path: "/secret",
-        element: (
-          <PrivateRoute>
-            <Secret />
-          </PrivateRoute>
-        ),
       },
     ],
   },

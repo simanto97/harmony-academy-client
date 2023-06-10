@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FaRegEdit } from "react-icons/fa";
 import UpdateModal from "../UpdateModal/UpdateModal";
 import { toast } from "react-hot-toast";
-
+// TODO: implement feedback options
 const MyClasses = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
@@ -33,7 +33,7 @@ const MyClasses = () => {
   };
 
   const handleUpdate = (formData) => {
-    // console.log(formData);
+    
     const image = formData.photo[0];
     const photoData = new FormData();
     photoData.append("image", image);
@@ -48,8 +48,7 @@ const MyClasses = () => {
       .then((res) => res.json())
       .then((imageData) => {
         const imageUrl = imageData?.data?.display_url;
-        // console.log("image display url", imageUrl);
-        // formData.append("image", imageUrl);
+       
         const addedData = {
           ...formData,
           image: imageUrl,
