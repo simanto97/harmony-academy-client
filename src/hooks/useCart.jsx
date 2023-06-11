@@ -13,7 +13,8 @@ const useCart = () => {
     data: cart = [],
   } = useQuery({
     queryKey: ["cart", user?.email],
-    enabled: !loading,
+    enabled:
+      !loading && !!user?.email && !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const res = await axiosSecure(`/dashboard/carts?email=${user?.email}`);
       return res.data;
