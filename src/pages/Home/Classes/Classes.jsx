@@ -6,6 +6,7 @@ import useCart from "../../../hooks/useCart";
 import useGetDbUser from "../../../hooks/useGetDbUser";
 import SectionTitle from "../../../components/SectionTitle";
 
+// TODO: implement card styles
 const Classes = () => {
   const { user } = useContext(AuthContext);
   const [dbUser] = useGetDbUser();

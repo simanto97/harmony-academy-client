@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import SectionTitle from "../../../components/SectionTitle";
+import moment from "moment/moment";
 
 // import axios from "axios";
 
@@ -44,13 +45,20 @@ const PaymentHistory = () => {
                 <strong>Transaction ID:</strong> {item?.transactionId}
               </p>
               <p className="text-gray-700">
-                <strong>Date:</strong> {item?.date}
+                <strong>Date:</strong>{" "}
+                {moment(item?.date).format("MMMM Do YYYY, h:mm a")}
               </p>
               <p className="text-gray-700">
-                <strong>Instrument Name:</strong> {item?.item?.name}
+                <strong>Course Name:</strong>{" "}
+                <span className="text-[#00b0e4] text-lg font-extrabold">
+                  {item?.item?.name}
+                </span>
               </p>
               <p className="text-gray-700">
-                <strong>Price:</strong> {item?.item?.price}
+                <strong>Price:</strong>{" "}
+                <span className="text-green-600 font-semibold">
+                  ${item?.item?.price}
+                </span>
               </p>
             </div>
           </div>
