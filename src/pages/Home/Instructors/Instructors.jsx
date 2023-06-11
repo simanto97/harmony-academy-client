@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import SectionTitle from "../../../components/SectionTitle";
 
 const Instructors = () => {
   const [instructors, setInstructors] = useState([]);
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_HOSTING_URL}/instructors`)
+    fetch(`${import.meta.env.VITE_HOSTING_URL}/users?role=instructor`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -15,12 +16,12 @@ const Instructors = () => {
   }, []);
   return (
     <div className="md:w-3/5 mx-auto">
-      <h2>hello: {instructors.length}</h2>
+      <SectionTitle heading={"Instructors"} />
       <div>
         {instructors.map((instructor, index) => (
           <div
             key={index}
-            className="card my-4 lg:card-side shadow-xl transition duration-300 hover:scale-110"
+            className="card my-4 md:w-3/5 mx-auto lg:card-side shadow-xl transition duration-300 hover:scale-105"
           >
             <figure>
               <img
@@ -34,11 +35,6 @@ const Instructors = () => {
                 {instructor.name}
               </h2>
               <p>{instructor.email}</p>
-              <div className="card-actions">
-                <button className="btn btn-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                  view profile
-                </button>
-              </div>
             </div>
           </div>
         ))}

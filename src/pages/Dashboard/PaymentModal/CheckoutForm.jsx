@@ -86,19 +86,27 @@ const CheckoutForm = ({ item, cartId }) => {
           item: item[0],
           //   items: cart.map((item) => item.classId),
         };
-        fetch(`${import.meta.env.VITE_HOSTING_URL}/payment`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(paymentInfo),
-        })
-          .then((res) => res.json())
-          .then(() => {})
-          .catch((error) => console.log(error.message));
+        // fetch(`${import.meta.env.VITE_HOSTING_URL}/payment`, {
+        //   method: "POST",
+        //   headers: {
+        //     "content-type": "application/json",
+        //   },
+        //   body: JSON.stringify(paymentInfo),
+        // })
+        //   .then((res) => res.json())
+        //   .then(() => {
+        //     if(data)
+        //   })
+
+        //   .catch((error) => console.log(error.message));
 
         axiosSecure.post("/payment", paymentInfo).then((res) => {
           console.log(res.data);
+          if (res.data.status === 0) {
+            toast.error(res.data.message);
+            navigate("/dashboard/carts");
+            return;
+          }
           if (res.data.insertResult.insertedId) {
             refetch();
             const text = `Payment Successful!, TransactionId: ${paymentIntent.id}`;

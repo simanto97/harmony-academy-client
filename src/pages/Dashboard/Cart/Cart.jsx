@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import useCart from "../../../hooks/useCart";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
-
+import SectionTitle from "../../../components/SectionTitle";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
   const handleCartDelete = (cartId) => {
-    localStorage.setItem('cart-id', cartId);
+    localStorage.setItem("cart-id", cartId);
 
     // fetch(`${import.meta.env.VITE_HOSTING_URL}/dashboard/carts/${id}`, {
     //   method: "DELETE",
@@ -55,6 +55,7 @@ const Cart = () => {
 
   return (
     <div className="md:w-4/5 mx-auto overflow-x-auto">
+      <SectionTitle heading={"Selected Class"} />
       <div className="uppercase font-semibold h-[60px] flex justify-evenly items-center">
         <h3 className="text-xl">Total Items: {cart.length}</h3>
         <h3 className="text-xl">Total Price: ${total}</h3>

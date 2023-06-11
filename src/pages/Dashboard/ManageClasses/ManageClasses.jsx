@@ -1,9 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { FcApproval, FcCancel } from "react-icons/fc";
+import FeedbackModal from "../FeedbackModal/FeedbackModal";
+import { useState } from "react";
 
 // TODO: Feedback implement
 const ManageClasses = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [classId, setClassId] = useState("");
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
   const { data: classes = [], refetch } = useQuery(["classes"], async () => {
     const res = await fetch(`${import.meta.env.VITE_HOSTING_URL}/classes`);
     return res.json();
@@ -27,12 +36,17 @@ const ManageClasses = () => {
       .catch((error) => toast.error(error.message));
   };
   const handleDeny = (id) => {
-    fetch(`${import.meta.env.VITE_HOSTING_URL}/classes/status/${id}`, {
-      method: "PATCH",
+    setClassId(id);
+    toggleModal();
+  };
+  const handleFeedbackUpdate = (feedback) => {
+    console.log(feedback);
+    fetch(`${import.meta.env.VITE_HOSTING_URL}/classes/status/${classId}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ status: "denied" }),
+      body: JSON.stringify({ status: "denied", feedback: feedback }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -107,6 +121,12 @@ const ManageClasses = () => {
                         <span>Deny</span>
                         <FcCancel className="text-2xl" />
                       </button>
+                      {isOpen && (
+                        <FeedbackModal
+                          onClose={toggleModal}
+                          handleFeedbackUpdate={handleFeedbackUpdate}
+                        />
+                      )}
                     </>
                   )}
                   {item?.status === "denied" && "Denied"}

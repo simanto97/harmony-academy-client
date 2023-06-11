@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import SectionTitle from "../../../components/SectionTitle";
 
 const AddClass = () => {
   const { user } = useContext(AuthContext);
@@ -31,6 +32,7 @@ const AddClass = () => {
         const imageUrl = imageData?.data?.display_url;
         const classData = {
           ...formData,
+          enrolledStudents: 0,
           image: imageUrl,
           status: "pending",
         };
@@ -56,7 +58,7 @@ const AddClass = () => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl text-center font-bold mb-4">Add Class</h1>
+      <SectionTitle heading={"Add a Class"} />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-lg md:w-3/5 mx-auto p-4 border rounded-md border-gray-300 shadow-xl"

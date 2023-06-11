@@ -39,7 +39,7 @@ const Login = () => {
           toast.error(`${error.message}`);
         });
       setLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   const togglePasswordVisibility = () => {

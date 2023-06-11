@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import useCart from "../../../hooks/useCart";
 import useGetDbUser from "../../../hooks/useGetDbUser";
+import SectionTitle from "../../../components/SectionTitle";
 
 const Classes = () => {
   const { user } = useContext(AuthContext);
@@ -54,13 +55,13 @@ const Classes = () => {
   };
   return (
     <div className="w-3/5 mx-auto">
-      <h2>Classes: {classes.length}</h2>
+      <SectionTitle heading={"Classes"} />
       <div>
         {classes.map((item) => (
           <div
             key={item._id}
-            className={`card my-4 bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row  transition duration-300 hover:scale-105 ${
-              item.availableSeats < 1 && "bg-red-500 text-white"
+            className={`card my-4  shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row  transition duration-300 hover:scale-105 ${
+              item.availableSeats < 1 ? "bg-red-500" : ""
             }`}
           >
             <div className="relative md:w-1/2">
@@ -78,6 +79,9 @@ const Classes = () => {
               <p className="text-gray-700 mb-2">
                 Available Seats: {item.availableSeats}
               </p>
+              <p className="text-gray-700 mb-2">
+                Enrolled Students: {item?.enrolledStudents || 0}
+              </p>
               <p className="text-green-500 text-lg font-bold mb-4">
                 ${item.price}
               </p>
@@ -86,8 +90,7 @@ const Classes = () => {
               <button
                 onClick={() => handleAddToCart(item)}
                 className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 ${
-                  item.availableSeats < 1 ||
-                  dbUser[0]?.role == ("instructor" || "admin")
+                  item.availableSeats < 1 || dbUser[0]?.role !== "student"
                     ? "btn-disabled bg-gray-500 hover:bg-gray-500"
                     : ""
                 }`}

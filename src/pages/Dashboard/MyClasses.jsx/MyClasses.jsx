@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FaRegEdit } from "react-icons/fa";
 import UpdateModal from "../UpdateModal/UpdateModal";
 import { toast } from "react-hot-toast";
+import SectionTitle from "../../../components/SectionTitle";
 // TODO: implement feedback options
 const MyClasses = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -33,7 +34,6 @@ const MyClasses = () => {
   };
 
   const handleUpdate = (formData) => {
-    
     const image = formData.photo[0];
     const photoData = new FormData();
     photoData.append("image", image);
@@ -48,7 +48,7 @@ const MyClasses = () => {
       .then((res) => res.json())
       .then((imageData) => {
         const imageUrl = imageData?.data?.display_url;
-       
+
         const addedData = {
           ...formData,
           image: imageUrl,
@@ -79,9 +79,7 @@ const MyClasses = () => {
   };
   return (
     <div className="md:w-4/5 mx-auto">
-      <h2 className="text-3xl font-semibold">
-        My added classes: {classes.length}
-      </h2>
+      <SectionTitle heading={"My Classes"} />
       <div>
         <div className="overflow-x-auto">
           <table className="table">
@@ -93,6 +91,7 @@ const MyClasses = () => {
                 <th>Price</th>
                 <th>Enrolled Students</th>
                 <th>Available Seats</th>
+                <th>Feedback</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -121,15 +120,9 @@ const MyClasses = () => {
                     {singleClass?.enrolledStudents || 0}
                   </td>
                   <td className="font-medium">{singleClass?.availableSeats}</td>
+                  <td className="font-medium">{singleClass?.feedback}</td>
                   <td className="font-medium">{singleClass?.status}</td>
-                  {/* <td>
-                    <FaRegEdit
-                      onClick={() => handleUpdate(singleClass)}
-                      className="text-3xl text-yellow-500"
-                    />
-                  </td> */}
                   <td>
-                    {/* Render your website content here */}
                     <FaRegEdit
                       className="text-3xl text-yellow-500 hover:text-yellow-700"
                       onClick={() => openModal(singleClass._id)}

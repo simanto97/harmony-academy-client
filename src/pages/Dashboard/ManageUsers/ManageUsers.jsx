@@ -4,6 +4,7 @@ import { GiTeacher } from "react-icons/gi";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { toast } from "react-hot-toast";
+import SectionTitle from "../../../components/SectionTitle";
 
 // TODO: need to make admin and instructor implement
 const ManageUsers = () => {
@@ -65,7 +66,7 @@ const ManageUsers = () => {
   };
   return (
     <div className="md:w-4/5 mx-auto">
-      <h2 className="text-3xl font-semibold">Total users: {allUsers.length}</h2>
+      <SectionTitle heading={"Manage Users"} />
       <div>
         <div className="overflow-x-auto">
           <table className="table table-zebra">

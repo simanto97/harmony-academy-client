@@ -48,6 +48,7 @@ const SignUp = () => {
                 const saveUser = {
                   name: data.name,
                   email: data.email,
+                  image: imageUrl,
                   role: "student",
                 };
                 fetch(`${import.meta.env.VITE_HOSTING_URL}/users`, {
