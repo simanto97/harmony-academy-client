@@ -4,7 +4,7 @@ import { FcApproval, FcCancel } from "react-icons/fc";
 import FeedbackModal from "../FeedbackModal/FeedbackModal";
 import { useState } from "react";
 
-// TODO: Feedback implement
+
 const ManageClasses = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [classId, setClassId] = useState("");

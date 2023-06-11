@@ -5,7 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import UpdateModal from "../UpdateModal/UpdateModal";
 import { toast } from "react-hot-toast";
 import SectionTitle from "../../../components/SectionTitle";
-// TODO: implement feedback options
+
 const MyClasses = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedData, setSelectedData] = useState([]);

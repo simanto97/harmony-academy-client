@@ -8,13 +8,13 @@ import useGetDbUser from "../../../hooks/useGetDbUser";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import useCart from "../../../hooks/useCart";
 
-// TODO: conditional rendering dashboard
+
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [dbUser] = useGetDbUser();
   const [cart] = useCart();
 
-  // console.log("from nav", user?.photoURL);
+  
 
   const navOptions = (
     <>

@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { toast } from "react-hot-toast";
 import SectionTitle from "../../../components/SectionTitle";
 
-// TODO: need to make admin and instructor implement
+
 const ManageUsers = () => {
   const { data: allUsers = [], refetch } = useQuery(["users"], async () => {
     const res = await fetch(`${import.meta.env.VITE_HOSTING_URL}/users`);
