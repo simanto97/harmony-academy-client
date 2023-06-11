@@ -3,9 +3,11 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import useCart from "../../../hooks/useCart";
+import useGetDbUser from "../../../hooks/useGetDbUser";
 
 const Classes = () => {
   const { user } = useContext(AuthContext);
+  const [dbUser] = useGetDbUser();
   const [classes, setClasses] = useState([]);
   const [, refetch] = useCart();
   const navigate = useNavigate();
@@ -57,7 +59,9 @@ const Classes = () => {
         {classes.map((item) => (
           <div
             key={item._id}
-            className="card my-4 bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row  transition duration-300 hover:scale-105"
+            className={`card my-4 bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row  transition duration-300 hover:scale-105 ${
+              item.availableSeats < 1 && "bg-red-500 text-white"
+            }`}
           >
             <div className="relative md:w-1/2">
               <img
@@ -81,7 +85,12 @@ const Classes = () => {
             <div className="absolute top-2 right-2">
               <button
                 onClick={() => handleAddToCart(item)}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300"
+                className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 ${
+                  item.availableSeats < 1 ||
+                  dbUser[0]?.role == ("instructor" || "admin")
+                    ? "btn-disabled bg-gray-500 hover:bg-gray-500"
+                    : ""
+                }`}
               >
                 Select
               </button>

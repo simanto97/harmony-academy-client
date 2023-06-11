@@ -3,8 +3,22 @@ import useCart from "../../../hooks/useCart";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 
+
 const Cart = () => {
   const [cart, refetch] = useCart();
+  const handleCartDelete = (cartId) => {
+    localStorage.setItem('cart-id', cartId);
+
+    // fetch(`${import.meta.env.VITE_HOSTING_URL}/dashboard/carts/${id}`, {
+    //   method: "DELETE",
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.deletedCount > 0) {
+    //       refetch();
+    //     }
+    //   });
+  };
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
   const handleDelete = (item) => {
@@ -38,14 +52,23 @@ const Cart = () => {
       }
     });
   };
+
   return (
     <div className="md:w-4/5 mx-auto overflow-x-auto">
       <div className="uppercase font-semibold h-[60px] flex justify-evenly items-center">
         <h3 className="text-xl">Total Items: {cart.length}</h3>
         <h3 className="text-xl">Total Price: ${total}</h3>
-        <Link>
-          <button className="btn btn-warning btn-sm">PAY</button>
-        </Link>
+        {/* <Link>
+          <button onClick={handleOpenModal} className="btn btn-warning btn-sm">
+            PAY
+          </button>
+          <PaymentModal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            setIsModalOpen={setIsModalOpen}
+            total={total}
+          />
+        </Link> */}
       </div>
       <div>
         {cart && Array.isArray(cart) ? (
@@ -59,6 +82,7 @@ const Cart = () => {
                   <th>Instructors Name</th>
                   <th>Price</th>
                   <th>Available Seats</th>
+                  <th>Action</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -87,6 +111,17 @@ const Cart = () => {
                     <td className="text-center">{item?.availableSeats}</td>
                     <td className="text-3xl text-red-600">
                       <RiDeleteBack2Fill onClick={() => handleDelete(item)} />
+                    </td>
+                    <td>{item.classId}</td>
+                    <td>
+                      <Link to={`/dashboard/payment-section/${item.classId}`}>
+                        <button
+                          onClick={() => handleCartDelete(item._id)}
+                          className="btn btn-warning btn-sm"
+                        >
+                          PAY
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}
