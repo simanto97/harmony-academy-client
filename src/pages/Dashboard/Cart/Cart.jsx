@@ -72,7 +72,7 @@ const Cart = () => {
         </Link> */}
       </div>
       <div>
-        {cart && Array.isArray(cart) ? (
+        {cart && Array.isArray(cart) && cart.length ? (
           <div className="overflow-x-auto text-3xl">
             <table className="table">
               {/* head */}

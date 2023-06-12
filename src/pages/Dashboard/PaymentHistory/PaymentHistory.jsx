@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import SectionTitle from "../../../components/SectionTitle";
 import moment from "moment/moment";
+import { Fade } from "react-awesome-reveal";
 
 // import axios from "axios";
 
@@ -37,30 +38,32 @@ const PaymentHistory = () => {
               />
               <h2 className="text-2xl font-bold">Payment Information</h2>
             </div>
-            <div>
-              <p className="text-gray-700">
-                <strong>Name:</strong> {item?.name}
-              </p>
-              <p className="text-gray-700">
-                <strong>Transaction ID:</strong> {item?.transactionId}
-              </p>
-              <p className="text-gray-700">
-                <strong>Date:</strong>{" "}
-                {moment(item?.date).format("MMMM Do YYYY, h:mm a")}
-              </p>
-              <p className="text-gray-700">
-                <strong>Course Name:</strong>{" "}
-                <span className="text-[#00b0e4] text-lg font-extrabold">
-                  {item?.item?.name}
-                </span>
-              </p>
-              <p className="text-gray-700">
-                <strong>Price:</strong>{" "}
-                <span className="text-green-600 font-semibold">
-                  ${item?.item?.price}
-                </span>
-              </p>
-            </div>
+            <Fade delay={1e2} cascade damping={1e-1}>
+              <div>
+                <p className="text-gray-700">
+                  <strong>Name:</strong> {item?.name}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Transaction ID:</strong> {item?.transactionId}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Date:</strong>{" "}
+                  {moment(item?.date).format("MMMM Do YYYY, h:mm a")}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Course Name:</strong>{" "}
+                  <span className="text-[#00b0e4] text-lg font-extrabold">
+                    {item?.item?.name}
+                  </span>
+                </p>
+                <p className="text-gray-700">
+                  <strong>Price:</strong>{" "}
+                  <span className="text-green-600 font-semibold">
+                    ${item?.item?.price}
+                  </span>
+                </p>
+              </div>
+            </Fade>
           </div>
         ))}
       </div>

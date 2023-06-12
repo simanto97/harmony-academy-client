@@ -18,6 +18,7 @@ import ManageClasses from "../pages/Dashboard/ManageClasses/ManageClasses";
 import EnrolledClasses from "../pages/Dashboard/EnrolledClasses/EnrolledClasses";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import PaymentSection from "../pages/Dashboard/PaymentSection/PaymentSection";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -115,5 +116,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);

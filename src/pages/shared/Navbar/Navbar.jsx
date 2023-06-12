@@ -8,13 +8,10 @@ import useGetDbUser from "../../../hooks/useGetDbUser";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import useCart from "../../../hooks/useCart";
 
-
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [dbUser] = useGetDbUser();
   const [cart] = useCart();
-
-  
 
   const navOptions = (
     <>
@@ -33,7 +30,7 @@ const Navbar = () => {
       {dbUser[0]?.role === "student" && (
         <>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard/carts">Dashboard</Link>
           </li>
           <li>
             <Link to="/dashboard/carts">
@@ -47,12 +44,12 @@ const Navbar = () => {
       )}
       {dbUser[0]?.role === "instructor" && (
         <li>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/dashboard/add-classes">Dashboard</Link>
         </li>
       )}
       {dbUser[0]?.role === "admin" && (
         <li>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/dashboard/manage-classes">Dashboard</Link>
         </li>
       )}{" "}
     </>
