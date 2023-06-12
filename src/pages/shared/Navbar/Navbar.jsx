@@ -44,7 +44,7 @@ const Navbar = () => {
       )}
       {dbUser[0]?.role === "instructor" && (
         <li>
-          <Link to="/dashboard/add-classes">Dashboard</Link>
+          <Link to="/dashboard/add-class">Dashboard</Link>
         </li>
       )}
       {dbUser[0]?.role === "admin" && (
