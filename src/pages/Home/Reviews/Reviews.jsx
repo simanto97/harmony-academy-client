@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import { EffectFlip, Pagination, Navigation } from "swiper";
 import Rating from "react-rating";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import SectionTitle from "../../../components/SectionTitle";
 
 const Reviews = () => {
   const { data: reviews = [] } = useQuery({
@@ -18,6 +19,7 @@ const Reviews = () => {
   });
   return (
     <div className="my-8">
+      <SectionTitle heading={"Reviews"} />
       <Swiper
         effect={"flip"}
         grabCursor={true}
