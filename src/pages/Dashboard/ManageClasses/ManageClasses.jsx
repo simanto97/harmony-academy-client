@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { FcApproval, FcCancel } from "react-icons/fc";
 import FeedbackModal from "../FeedbackModal/FeedbackModal";
 import { useState } from "react";
-
+import SectionTitle from "../../../components/SectionTitle";
 
 const ManageClasses = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +59,7 @@ const ManageClasses = () => {
   };
   return (
     <div className="md:w-4/5 mx-auto">
-      <h2>classes: {classes.length}</h2>
+      <SectionTitle heading={"Manage Classes"} />
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
